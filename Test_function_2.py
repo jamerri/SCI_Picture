@@ -15,10 +15,8 @@ import os
 import shutil
 import xlwt
 import xlrd
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from openpyxl import load_workbook
 import time
 
 
@@ -26,15 +24,14 @@ import time
 X_position = 7.35
 Y_position = 3.05
 
-
 # 实验组数
-Experiment_number = 3
-
+Experiment_number = 10
 
 # 数据存储文件夹
-dirs = './ddd'
-# 文件数量
-file_number = 9
+dirs = './aaa'
+
+#  文件路径前缀
+path = './aaa/'
 
 
 # 数据分类函数
@@ -44,8 +41,8 @@ def class_files_function(f_num):
     # print(filelist)
 
     # 按照实验组数对数据进行分类
-    for i in range(int(f_num / 3)):
-        path = './ddd/'
+    for i in range(f_num):
+        # path = './ddd/'
         new_dir = os.path.join(path, str(i + 1))
         os.mkdir(new_dir)
         # print(new_dir)
@@ -59,15 +56,15 @@ def class_files_function(f_num):
 
 # 对应的文件夹数据合并为Excel
 def write_to_excel(f_num):
-    for i in range(int(f_num / 3)):
+    for i in range(f_num):
         num = i + 1
 
-        sub_dirs = './ddd/' + str(i + 1)
+        sub_dirs = path + str(i + 1)
         sub_filelist = os.listdir(sub_dirs)
 
-        file_path_1 = './ddd/' + str(i + 1) + '/' + sub_filelist[0]
-        file_path_2 = './ddd/' + str(i + 1) + '/' + sub_filelist[1]
-        file_path_3 = './ddd/' + str(i + 1) + '/' + sub_filelist[2]
+        file_path_1 = path + str(i + 1) + '/' + sub_filelist[0]
+        file_path_2 = path + str(i + 1) + '/' + sub_filelist[1]
+        file_path_3 = path + str(i + 1) + '/' + sub_filelist[2]
 
         f1 = open(file_path_1, 'r', encoding='utf-8')
         f2 = open(file_path_2, 'r', encoding='utf-8')
@@ -97,13 +94,13 @@ def r_txt(f_n, ws_n, w_b, n):
             col += 1
         row += 1
         col = 0
-    w_b.save("./ddd/" + str(n) + "/robots.xlsx")
+    w_b.save(path + str(n) + "/robots.xlsx")
 
 
 # 画图函数
 def plot_trajectory_function(no_experiment):
     # 读取路径
-    book = xlrd.open_workbook(filename='ddd/' + str(no_experiment + 1) + '/robots.xlsx')
+    book = xlrd.open_workbook(filename=path + str(no_experiment + 1) + '/robots.xlsx')
 
     # 读取名字为Sheet1的表
     sheet1 = book.sheet_by_name("1_robot")
@@ -116,9 +113,9 @@ def plot_trajectory_function(no_experiment):
 
     # 判断此次实验的步数
     rowamount = sheet1.nrows
-    print(rowamount)
+    # print(rowamount)
     step_total = rowamount - 12
-    print(step_total)
+    print("This experimental steps are " + str(step_total) + "!!!!")
 
     # 用于存储1号机器人的数组
     robot_1_x = []
@@ -129,9 +126,9 @@ def plot_trajectory_function(no_experiment):
         robot_1_x.append(4.97 - float(sheet1.cell_value(row_num, 2)))
         robot_1_y.append(2.38 + float(sheet1.cell_value(row_num, 1)))
         row_num = row_num + 1
-    print(robot_1_x)
-    print(len(robot_1_x))
-    print(robot_1_y)
+    # print(robot_1_x)
+    print("This experimental points are " + str(len(robot_1_x)) + "!!!!")
+
     # 用于存储2号机器人的数组
     robot_2_x = []
     robot_2_y = []
@@ -210,22 +207,24 @@ def plot_trajectory_function(no_experiment):
     # plt.plot(robot_1_x[-1], robot_1_y[-1], 'k-', marker='o', markersize=4)
 
     plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
-    save_path = 'ddd/' + str(no_experiment + 1) + '/2D_trajectory.tiff'
+    save_path = path + str(no_experiment + 1) + '/2D_trajectory.tiff'
     plt.savefig(save_path, bbox_inches='tight', dpi=300)  # 保存图
     # plt.show()
 
 
-starttime = time.time()
-class_files_function(file_number)
-print("Success 1")
-write_to_excel(file_number)
-print("Success 2")
+# 记录开始时间
+start_time = time.time()
 
-# No_experiment = 1
+class_files_function(Experiment_number)
+write_to_excel(Experiment_number)
+
+# 循环执行画图程序
 for No_experiment in range(Experiment_number):
     plot_trajectory_function(No_experiment)
     No_experiment += 1
 
-endtime = time.time()
+print("End!!!!")
 
-print(endtime - starttime)
+end_time = time.time()
+
+print(end_time - start_time)
