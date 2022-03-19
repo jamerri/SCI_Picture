@@ -78,8 +78,11 @@ def write_to_excel(f_num):
         ws3 = wb.add_sheet('3_robot')
 
         r_txt(f1, ws1, wb, num)
+        wb.close()
         r_txt(f2, ws2, wb, num)
+        wb.close()
         r_txt(f3, ws3, wb, num)
+        wb.close()
     print("Success!!")
 
 
@@ -96,13 +99,13 @@ def r_txt(f_n, ws_n, w_b, n):
             col += 1
         row += 1
         col = 0
-    w_b.save("./ddd/" + str(n) + "/robots.xls")
+    w_b.save("./ddd/" + str(n) + "/robots.xlsx")
 
 
 def plot_trajectory(no_experiment):
     # 读取路径
-    filename = "./ddd/" + str(no_experiment) + "/robots.xls"
-    book = load_workbook(filename)
+    fname = './ddd/' + str(no_experiment + 1) + '/robots.xlsx'
+    book = load_workbook(fname)
 
     # 读取名字为Sheet1的表
     sheet1 = book.get_sheet_by_name("1_robot")
@@ -211,7 +214,7 @@ def plot_trajectory(no_experiment):
     # plt.plot(robot_1_x[-1], robot_1_y[-1], 'k-', marker='o', markersize=4)
 
     plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
-    save_path = "./ddd/" + str(no_experiment) + "/2D_trajectory.tiff"
+    save_path = 'ddd/' + str(no_experiment + 1) + '/2D_trajectory.tiff'
     plt.savefig(save_path, bbox_inches='tight', dpi=300)  # 保存图
     plt.show()
 
