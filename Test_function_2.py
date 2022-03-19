@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-   File Name：     Test_function
+   File Name：     Test_function_2
    Description :
    Author :       Jamerri
    date：          2022/3/19
@@ -14,10 +14,12 @@
 import os
 import shutil
 import xlwt
+import xlrd
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from openpyxl import load_workbook
+import time
 
 
 # 源位置参数
@@ -101,55 +103,53 @@ def r_txt(f_n, ws_n, w_b, n):
 # 画图函数
 def plot_trajectory_function(no_experiment):
     # 读取路径
-    book = load_workbook(filename='ddd/' + str(no_experiment + 1) + '/robots.xlsx')
+    book = xlrd.open_workbook(filename='ddd/' + str(no_experiment + 1) + '/robots.xlsx')
 
     # 读取名字为Sheet1的表
-    sheet1 = book.get_sheet_by_name("1_robot")
+    sheet1 = book.sheet_by_name("1_robot")
 
     # 读取名字为Sheet2的表
-    sheet2 = book.get_sheet_by_name("2_robot")
+    sheet2 = book.sheet_by_name("2_robot")
 
     # 读取名字为Sheet3的表
-    sheet3 = book.get_sheet_by_name("3_robot")
+    sheet3 = book.sheet_by_name("3_robot")
 
     # 判断此次实验的步数
-    step_start = 9
-    while step_start <= 100:
-        if sheet1.cell(row=step_start, column=2).value == 0:
-            break
-        else:
-            step_start += 1
-
-    step_total = step_start - 9
+    rowamount = sheet1.nrows
+    print(rowamount)
+    step_total = rowamount - 12
+    print(step_total)
 
     # 用于存储1号机器人的数组
     robot_1_x = []
     robot_1_y = []
-    row_num = 1
-    while row_num <= step_total:
+    row_num = 8
+    while row_num <= (step_total + 8):
         # 将表中第一列的1-100行数据写入wind_speed数组中
-        robot_1_x.append(sheet1.cell(row=row_num, column=2).value)
-        robot_1_y.append(sheet1.cell(row=row_num, column=3).value)
+        robot_1_x.append(4.97 - float(sheet1.cell_value(row_num, 2)))
+        robot_1_y.append(2.38 + float(sheet1.cell_value(row_num, 1)))
         row_num = row_num + 1
-
+    print(robot_1_x)
+    print(len(robot_1_x))
+    print(robot_1_y)
     # 用于存储2号机器人的数组
     robot_2_x = []
     robot_2_y = []
-    row_num = 1
-    while row_num <= step_total:
+    row_num = 8
+    while row_num <= (step_total + 8):
         # 将表中第一列的1-100行数据写入wind_speed数组中
-        robot_2_x.append(sheet2.cell(row=row_num, column=2).value)
-        robot_2_y.append(sheet2.cell(row=row_num, column=3).value)
+        robot_2_x.append(4.97 - float(sheet2.cell_value(row_num, 2)))
+        robot_2_y.append(2.38 + float(sheet2.cell_value(row_num, 1)))
         row_num = row_num + 1
 
     # 用于存储3号机器人的数组
     robot_3_x = []
     robot_3_y = []
-    row_num = 1
-    while row_num <= step_total:
+    row_num = 8
+    while row_num <= (step_total + 8):
         # 将表中第一列的1-100行数据写入wind_speed数组中
-        robot_3_x.append(sheet3.cell(row=row_num, column=1).value)
-        robot_3_y.append(sheet3.cell(row=row_num, column=2).value)
+        robot_3_x.append(4.97 - float(sheet3.cell_value(row_num, 2)))
+        robot_3_y.append(2.38 + float(sheet3.cell_value(row_num, 1)))
         row_num = row_num + 1
 
     # 图像制作
@@ -212,15 +212,20 @@ def plot_trajectory_function(no_experiment):
     plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
     save_path = 'ddd/' + str(no_experiment + 1) + '/2D_trajectory.tiff'
     plt.savefig(save_path, bbox_inches='tight', dpi=300)  # 保存图
-    plt.show()
+    # plt.show()
 
 
+starttime = time.time()
 class_files_function(file_number)
 print("Success 1")
 write_to_excel(file_number)
 print("Success 2")
 
-No_experiment = 1
-for No_experiment in range(Experiment_number + 1):
+# No_experiment = 1
+for No_experiment in range(Experiment_number):
     plot_trajectory_function(No_experiment)
     No_experiment += 1
+
+endtime = time.time()
+
+print(endtime - starttime)
