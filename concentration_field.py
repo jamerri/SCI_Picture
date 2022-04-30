@@ -79,9 +79,9 @@ ax.spines['top'].set_visible(False)  # 隐藏上端脊梁
 ax.spines['right'].set_visible(False)  # 隐藏右端脊梁
 
 # 画折线图
-l1, = plt.plot(x, concentration1, 'b-', linewidth=1)
-l2, = plt.plot(x, concentration2, 'g-', linewidth=1)
-l3, = plt.plot(x, concentration3, 'r-', linewidth=1)
+l1, = plt.plot(x, concentration1, ls='-', linewidth=1.5, c='#12c2e9')
+l2, = plt.plot(x, concentration2, ls='-', linewidth=1.5, c='#c471ed')
+l3, = plt.plot(x, concentration3, ls='-', linewidth=1.5, c='#f64f59')
 
 # 设置图例 bbox_to_anchor图例的位置 ncol设置列数 frameon设置边框
 plt.legend(handles=[l1, l2, l3,], labels=['PS1', 'PS2', 'PS3',], loc='best', frameon=True, edgecolor='k')
