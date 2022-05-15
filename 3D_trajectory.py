@@ -19,7 +19,7 @@ Y_position = 3.05
 Z_position = 1.05
 
 # 源定位步数
-step_num = 42
+step_num = 41
 
 # 读取路径
 book = load_workbook(filename=r"data/3d_robot_data.xlsx")
@@ -39,7 +39,7 @@ robot_1_x = []
 robot_1_y = []
 robot_1_z = []
 
-row_num = 1
+row_num = 2
 while row_num <= (step_num + 1):
     # 将表中第一列的1-100行数据写入wind_speed数组中
     robot_1_x.append(sheet1.cell(row=row_num, column=2).value)
@@ -107,15 +107,30 @@ ax.set_zlabel('Z (m)', fontsize=12)  # y轴标题
 # 设置坐标轴范围
 ax.set_xlim(0, 8)
 ax.set_ylim(0, 4.1)
-ax.set_zlim(0, 1.5)
+ax.set_zlim(0.5, 1.5)
+
+# x轴主刻度设置为2的倍数
+ax_xmajorLocator = MultipleLocator(2)
+ax.xaxis.set_major_locator(ax_xmajorLocator)
 
 # y轴主刻度设置为1的倍数
-axymajorLocator = MultipleLocator(1)
-ax.yaxis.set_major_locator(axymajorLocator)
+ax_ymajorLocator = MultipleLocator(1)
+ax.yaxis.set_major_locator(ax_ymajorLocator)
 
 # z轴主刻度设置为0.5的倍数
-axzmajorLocator = MultipleLocator(0.5)
-ax.zaxis.set_major_locator(axzmajorLocator)
+ax_zmajorLocator = MultipleLocator(0.5)
+ax.zaxis.set_major_locator(ax_zmajorLocator)
+
+# 设置视角
+ax.view_init(5, 300)
+
+# 前3个参数用来调整各坐标轴的缩放比例
+ax.get_proj = lambda: np.dot(Axes3D.get_proj(ax), np.diag([1, 1, 1, 1]))
+
+# 改变背景色
+ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
+ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 
 # 绘制折线图，添加数据点，设置点的大小
 figure1 = ax.plot(robot_1_x, robot_1_y, robot_1_z, 'b-', marker='o', markersize=3, linewidth=0.5)
@@ -125,7 +140,7 @@ figure3 = ax.plot(robot_3_x, robot_3_y, robot_3_z, 'k-', marker='^', markersize=
 
 # 源位置图案
 # plot_circle((X_position, Y_position), r=0.5)
-plt.plot(X_position, Y_position, Z_position, c='r', marker='o', markersize=5)
+plt.plot(X_position, Y_position, Z_position, c='r', marker='o', markersize=6)
 
 # 起点位置图案
 plt.plot(robot_1_x[0], robot_1_y[0], robot_1_z[0], 'k-', marker='o', markersize=4)
@@ -146,6 +161,6 @@ plt.plot(robot_3_x[-1], robot_3_y[-1], robot_3_z[-1], 'k-', marker='^', markersi
 # # 源确认点位置图案
 # plt.plot(robot_1_x[-1], robot_1_y[-1], 'k-', marker='o', markersize=4)
 
-# plt.rcParams['figure.figsize'] = (6.0, 8.0)  # 设置figure_size尺寸
-# plt.savefig(r'pic/trajectory.tiff', bbox_inches='tight', dpi=300)  # 保存图
+plt.rcParams['figure.figsize'] = (6.0, 8.0)  # 设置figure_size尺寸
+plt.savefig(r'pic/3D_trajectory.tiff', bbox_inches='tight', dpi=300)  # 保存图
 plt.show()
