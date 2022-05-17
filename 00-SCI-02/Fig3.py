@@ -19,12 +19,12 @@ import numpy as np
 
 # 定义点数据
 x_1 = [1.5, 2.5, 3.5, 4.5, 5.5]
-y_1 = [0.5, 0.45, 0.4, 0.35, 0.3]
+y_1 = [0.5, 0.7, 0.9, 1.1, 1.3]
 z_1 = [1, 1.5, 2, 2.5, 3]
 x_2 = [1, 2, 3, 4, 5]
 y_2 = [1, 2, 3, 4, 5]
 z_2 = [3, 2.5, 2, 1.5, 1]
-x_3 = [0.5, 0.45, 0.4, 0.35, 0.3]
+x_3 = [0.5, 0.7, 0.9, 1.1, 1.3]
 y_3 = [1.5, 2.5, 3.5, 4.5, 5.5]
 z_3 = [5, 4.5, 4, 3.5, 3]
 
@@ -35,23 +35,23 @@ X, Y = np.meshgrid(x, y)
 
 # 定义相交线
 xx_1 = [1.5, 3.5]
-yy_1 = [0.5, 0.4]
+yy_1 = [0.5, 0.9]
 zz_1 = [1, 1]
 xx_2 = [1, 2]
 yy_2 = [1, 2]
 zz_2 = [3, 3]
-xx_3 = [0.5, 0.4]
+xx_3 = [0.5, 0.9]
 yy_3 = [1.5, 3.5]
 zz_3 = [5, 5]
 
 # 定义垂直线
 xxx_1 = [3.5, 3.5]
-yyy_1 = [0.4, 0.4]
+yyy_1 = [0.9, 0.9]
 zzz_1 = [1, 2]
 xxx_2 = [2, 2]
 yyy_2 = [2, 2]
 zzz_2 = [3, 2.5]
-xxx_3 = [0.4, 0.4]
+xxx_3 = [0.9, 0.9]
 yyy_3 = [3.5, 3.5]
 zzz_3 = [5, 4]
 
@@ -67,7 +67,7 @@ def plot_linar_cube(ax, x, y, z, dx, dy, dz, color='black'):
     ax.plot3D(xx, yy, [z + dz] * 5, **kwargs)
     ax.plot3D([x, x], [y, y], [z, z + dz], **kwargs)
     ax.plot3D([x, x], [y + dy, y + dy], [z, z + dz], **kwargs)
-    ax.plot3D([x + dx, x + dx], [y + dy, y + dy], [z, z + dz], **kwargs)
+    ax.plot3D([x + dx, x + dx], [y + dy, +y + dy], [z, z + dz], **kwargs)
     ax.plot3D([x + dx, x + dx], [y, y], [z, z + dz], **kwargs)
     # plt.title('Cube')
     # plt.show()
@@ -114,10 +114,10 @@ ax.plot(xxx_1, yyy_1, zzz_1, 'k--', linewidth=1)
 ax.plot(xxx_2, yyy_2, zzz_2, 'k--', linewidth=1)
 ax.plot(xxx_3, yyy_3, zzz_3, 'k--', linewidth=1)
 
-# # 绘制折线图，添加数据点，设置点的大小
-# ax.plot(x_1, y_1, '-', c='#f7903d', marker='o', markersize=3.5, linewidth=0.75)
-# ax.plot(x_2, y_2, '-', c='#4d85bd', marker='s', markersize=3.5, linewidth=0.75)
-# ax.plot(x_3, y_3, '-', c='#59a95a', marker='^', markersize=3.5, linewidth=0.75)
+# 绘制折线图，添加数据点，设置点的大小
+ax.plot(x_1, y_1, '--', c='#f7903d', marker='o', markersize=3.5, linewidth=0.75)
+ax.plot(x_2, y_2, '--', c='#4d85bd', marker='s', markersize=3.5, linewidth=0.75)
+ax.plot(x_3, y_3, '--', c='#59a95a', marker='^', markersize=3.5, linewidth=0.75)
 
 # 绘制平面
 ax.plot_surface(X, Y, Z=X * 0 + 1, color='gray', alpha=0.22)
