@@ -13,15 +13,10 @@
 
 # coding:utf-8
 
-"""
-Author: roguesir
-Date: 2017/8/30
-GitHub: https://roguesir.github.com
-Blog: http://blog.csdn.net/roguesir
-"""
 
 import numpy as np
 import matplotlib.pyplot as plt
+from brokenaxes import brokenaxes
 
 
 def sgn(value, value_i, values_t):
@@ -31,17 +26,37 @@ def sgn(value, value_i, values_t):
         return 0
 
 
-plt.figure(figsize=(6, 4))
+# 导入Times New Roman字体
+plt.rc('font', family='Times New Roman', size=15)
+
+# 设置xtick和ytick的方向：in、out、inout
+plt.rcParams['xtick.direction'] = 'in'
+plt.rcParams['ytick.direction'] = 'in'
+
 i = 0
 t = 6
 y = np.array([])
 
 for i in range(150):
     x = np.linspace(0 + (i * t), 6 + (i * t), 100)
-
     for v in x:
         y = np.append(y, np.linspace(sgn(v, i, t), sgn(v, i, t), 1))
-print(y)
-l = plt.plot(x, y, 'b', label='type')
-plt.legend()
+
+x = np.linspace(0, 900, 15000)
+
+bax = brokenaxes(xlims=((0, 25), (875, 900)), hspace=.05, despine=True)
+
+# 设置坐标轴范围
+plt.xlim(0, 900)
+plt.ylim(0, 15)
+
+# 设置坐标轴标题
+bax.set_xlabel('Time (s)', fontsize=15)  # x轴标题
+bax.set_ylabel('Release rate (mg/s)', fontsize=15)  # y轴标题
+
+l = bax.plot(x, y, 'b')
+
+# 保存图片
+plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
+# plt.savefig(r'pic/source_release.tiff', bbox_inches='tight', dpi=300)
 plt.show()
