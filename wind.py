@@ -15,7 +15,7 @@ from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 
 # 读取路径
-book = load_workbook(filename=r"data/wind_data.xlsx")
+book = load_workbook(filename=r"data/浓度场数据-0710/M0.xlsx")
 
 # 读取名字为Sheet1的表
 sheet = book.get_sheet_by_name("Sheet1")
@@ -23,22 +23,30 @@ sheet = book.get_sheet_by_name("Sheet1")
 # 用于存储数据的数组
 wind_speed = []
 wind_direction = []
-row_num = 1
-while row_num <= 300:
+row_num = 401
+while row_num <= 1000:
     # 将表中第一列的1-100行数据写入wind_speed数组中
     wind_speed.append(sheet.cell(row=row_num, column=2).value)
     wind_direction.append(sheet.cell(row=row_num, column=1).value)
     row_num = row_num + 1
 
+# # 弧度换算
+# for i in range(len(wind_direction)):
+#     D = (180 + wind_direction[i] * (180 / math.pi))
+#     if D < 0:
+#         wind_direction[i] = 0
+#     else:
+#         wind_direction[i] = D
+#     i = i + 1
+
 # 弧度换算
 for i in range(len(wind_direction)):
-    D = (180 + wind_direction[i] * (180 / math.pi))
-    if D < 0:
-        wind_direction[i] = 0
+    if 0 <= wind_direction[i] <= 3.14159:
+        D = 360 - wind_direction[i] * (180 / math.pi)
     else:
-        wind_direction[i] = D
+        D = abs(wind_direction[i]) * (180 / math.pi)
+    wind_direction[i] = D
     i = i + 1
-
 
 # 图像制作
 
@@ -50,7 +58,7 @@ plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 
 # X数据
-x = np.arange(0, 300, 1)
+x = np.arange(0, 600, 1)
 
 fig, ax1 = plt.subplots()
 ax1.spines['top'].set_visible(False)  # 隐藏上端脊梁
@@ -62,8 +70,8 @@ l1, = ax1.plot(x, wind_speed, 'g-')
 l2, = ax2.plot(x, wind_direction, 'b-')
 
 # 设置坐标轴范围
-plt.xlim(0, 300)
-ax1.set_ylim(0, 1)
+plt.xlim(0, 600)
+ax1.set_ylim(0, 1.2)
 ax2.set_ylim(0, 360)
 
 # 设置为60的倍数
@@ -80,6 +88,6 @@ ax2.set_ylabel('Wind Direction ('u'\u00b0'')', fontsize=12, color='k')
 
 # 设置图例 bbox_to_anchor图例的位置 ncol设置列数 frameon设置边框
 plt.legend(handles=[l1, l2,], labels=['wind speed', 'wind direction'], bbox_to_anchor=(0.18, 1.1), loc=2, ncol=2, frameon=False)
-plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/wind.tiff', bbox_inches='tight', dpi=300)  # 保存图片
+plt.rcParams['figure.figsize'] = (16.0, 12.0)  # 设置figure_size尺寸
+plt.savefig(r'pic/M0_wind_RNV.tiff', bbox_inches='tight', dpi=300)  # 保存图片
 plt.show()

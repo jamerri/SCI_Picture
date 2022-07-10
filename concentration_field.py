@@ -13,22 +13,17 @@ from openpyxl import load_workbook
 import math
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
-
-# 源定位步数
-step_num = 50
-
 # 读取路径
-book = load_workbook(filename=r"data/concentration_data.xlsx")
-
+book = load_workbook(filename=r"data/浓度场数据-0710/RNV_concentration.xlsx")
 
 # 读取名字为Sheet1的表
 sheet = book.get_sheet_by_name("Sheet1")
 concentration1 = []
 
-row_num = 9
-while row_num <= (step_num + 8):
+row_num = 201
+while row_num <= 800:
     # 将表中第 i 列的1-100行数据写入数组中
-    concentration1.append(sheet.cell(row=row_num, column=10).value / 4)
+    concentration1.append(sheet.cell(row=row_num, column=1).value)
     row_num = row_num + 1
 
 
@@ -36,20 +31,20 @@ while row_num <= (step_num + 8):
 sheet = book.get_sheet_by_name("Sheet2")
 concentration2 = []
 
-row_num = 9
-while row_num <= (step_num + 8):
+row_num = 201
+while row_num <= 800:
     # 将表中第 i 列的1-100行数据写入数组中
-    concentration2.append(sheet.cell(row=row_num, column=10).value / 4)
+    concentration2.append(sheet.cell(row=row_num, column=1).value)
     row_num = row_num + 1
 
 # 读取名字为Sheet1的表
 sheet = book.get_sheet_by_name("Sheet3")
 concentration3 = []
 
-row_num = 9
-while row_num <= (step_num + 8):
+row_num = 201
+while row_num <= 800:
     # 将表中第 i 列的1-100行数据写入数组中
-    concentration3.append(sheet.cell(row=row_num, column=10).value / 4)
+    concentration3.append(sheet.cell(row=row_num, column=1).value)
     row_num = row_num + 1
 
 
@@ -63,15 +58,15 @@ plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 
 # X数据
-x = np.arange(0, step_num, 1)
+x = np.arange(0, 600, 1)
 
 # 设置坐标轴标题
 plt.xlabel('Time (s)', fontsize=15)  # x轴标题
 plt.ylabel('Concentration (ppm)', fontsize=15)  # y轴标题
 
 # 设置坐标轴范围
-plt.xlim(0, step_num)
-plt.ylim(0, 50)
+plt.xlim(0, 600)
+plt.ylim(0, 400)
 
 # 坐标轴隐藏
 ax = plt.gca()
@@ -88,5 +83,5 @@ plt.legend(handles=[l1, l2, l3,], labels=['PS1', 'PS2', 'PS3',], loc='best', fra
 
 # 保存图片
 plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/concentration_filed.tiff', bbox_inches='tight', dpi=300)
+plt.savefig(r'pic/RNV_concentration_filed.tiff', bbox_inches='tight', dpi=300)
 plt.show()
