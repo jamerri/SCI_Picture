@@ -56,5 +56,5 @@ l = bax.plot(x, y, c='#6e9ece')
 
 # 保存图片
 plt.rcParams['figure.figsize'] = (8.0, 6.0)  # 设置figure_size尺寸
-plt.savefig("source_release.tiff", bbox_inches='tight', dpi=300)
+plt.savefig("source_release.tiff", bbox_inches='tight', dpi=600)
 plt.show()
