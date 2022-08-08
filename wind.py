@@ -14,18 +14,18 @@ import math
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 # 读取路径
-book = load_workbook(filename=r"data/浓度场数据-0717/M0-20220717.xlsx")
+book = load_workbook(filename=r"data/浓度场数据-0710/M3.xlsx")
 
 # 读取名字为Sheet1的表
-sheet = book.get_sheet_by_name("Sheet2")
+sheet = book.get_sheet_by_name("Sheet1")
 
 # 用于存储数据的数组
 wind_speed = []
 wind_direction = []
 
 # Imitated 451(M1-M3) Real 621(M1-M3) (M0)
-row_num = 651
-while row_num <= 950:
+row_num = 451
+while row_num <= 750:
     # 将表中第一列的1-100行数据写入wind_speed数组中
     wind_speed.append(sheet.cell(row=row_num, column=2).value)
     wind_direction.append(sheet.cell(row=row_num, column=1).value)
@@ -72,11 +72,11 @@ l2, = ax2.plot(x, wind_direction, ls='-', linewidth=1.3, c='#3979F2')
 
 # 设置坐标轴范围
 plt.xlim(0, 300)
-ax1.set_ylim(0, 1.5)
+ax1.set_ylim(0, 0.6)
 ax2.set_ylim(0, 360)
 
 # 设置为n的倍数
-ax1ymajorLocator = MultipleLocator(0.3)
+ax1ymajorLocator = MultipleLocator(0.1)
 ax1.yaxis.set_major_locator(ax1ymajorLocator)
 
 # 设置为60的倍数
@@ -92,8 +92,8 @@ ax1.set_ylabel('Wind Speed (m/s)', fontsize=14, color='k')
 ax2.set_ylabel('Wind Direction ('u'\u00b0'')', fontsize=14, color='k')
 
 # 设置图例 bbox_to_anchor图例的位置 ncol设置列数 frameon设置边框
-plt.legend(handles=[l1, l2, ], labels=['wind speed', 'wind direction'], bbox_to_anchor=(0.14, 1.1), loc=2, ncol=2,
+plt.legend(handles=[l1, l2, ], labels=['Wind speed', 'Wind direction'], bbox_to_anchor=(0.14, 1.1), loc=2, ncol=2,
            frameon=False)
 plt.rcParams['figure.figsize'] = (4.0, 3.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/M0_wind_RNV-20220717-2.tif', bbox_inches='tight', dpi=600)  # 保存图片
+plt.savefig(r'pic/M3_wind_INV-20220722.tif', bbox_inches='tight', dpi=600)  # 保存图片
 plt.show()
