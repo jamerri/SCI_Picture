@@ -88,12 +88,12 @@ ax2.yaxis.set_major_locator(ax2ymajorLocator)
 
 # 设置坐标轴标签
 ax1.set_xlabel('Time (s)', fontsize=14)
-ax1.set_ylabel('Wind Speed (m/s)', fontsize=14, color='k')
-ax2.set_ylabel('Wind Direction ('u'\u00b0'')', fontsize=14, color='k')
+ax1.set_ylabel('Airflow Speed (m/s)', fontsize=14, color='k')
+ax2.set_ylabel('Airflow Direction ('u'\u00b0'')', fontsize=14, color='k')
 
 # 设置图例 bbox_to_anchor图例的位置 ncol设置列数 frameon设置边框
-plt.legend(handles=[l1, l2, ], labels=['Wind speed', 'Wind direction'], bbox_to_anchor=(0.14, 1.1), loc=2, ncol=2,
+plt.legend(handles=[l1, l2, ], labels=['Airflow Speed', 'Airflow Direction'], bbox_to_anchor=(0.08, 1.1), loc=2, ncol=2,
            frameon=False)
 plt.rcParams['figure.figsize'] = (4.0, 3.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/M3_wind_INV-20220722.tif', bbox_inches='tight', dpi=600)  # 保存图片
+plt.savefig(r'pic/M3_wind_INV-20220912.svg', bbox_inches='tight', dpi=600)  # 保存图片
 plt.show()

@@ -85,5 +85,5 @@ plt.legend(handles=[l1, l2, l3,], labels=['M1', 'M2', 'M3',], bbox_to_anchor=(0.
 
 # 保存图片
 plt.rcParams['figure.figsize'] = (4.0, 3.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/20220710-RNV_concentration_filed.tif', bbox_inches='tight', dpi=600)
+plt.savefig(r'pic/20220710-RNV_concentration_filed-0912.svg', bbox_inches='tight', dpi=600)
 plt.show()

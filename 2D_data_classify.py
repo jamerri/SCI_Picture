@@ -28,7 +28,7 @@ X_position = 7.35
 Y_position = 3.05
 
 # 实验组数
-Experiment_number = 14
+Experiment_number = 8
 # 数据存储文件夹
 dirs = './data/data_classfiry'
 
