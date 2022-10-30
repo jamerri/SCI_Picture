@@ -14,6 +14,7 @@
 import matplotlib.pyplot as plt
 import xlrd
 from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
 
 
 # 源位置参数
@@ -84,13 +85,13 @@ while row_num <= (step_total + 8):
 
 # 图像制作
 
-# # 画圆线函数
-# def plot_circle(center=(7.35, 3.05), r=0.5):
-#     x = np.linspace(center[0] - r, center[0] + r, 5000)
-#     y1 = np.sqrt(r**2 - (x-center[0])**2) + center[1]
-#     y2 = -np.sqrt(r**2 - (x-center[0])**2) + center[1]
-#     plt.plot(x, y1, 'k--')
-#     plt.plot(x, y2, 'k--')
+# 画圆线函数
+def plot_circle(center=(7.35, 3.05), r=0.5):
+    x = np.linspace(center[0] - r, center[0] + r, 5000)
+    y1 = np.sqrt(r**2 - (x-center[0])**2) + center[1]
+    y2 = -np.sqrt(r**2 - (x-center[0])**2) + center[1]
+    plt.plot(x, y1, 'k--')
+    plt.plot(x, y2, 'k--')
 
 
 # 导入Times New Roman字体
@@ -106,6 +107,7 @@ fig = plt.figure(figsize=(8, 6))
 # ax = fig.gca(projection='3d')
 ax = fig.add_subplot(projection='3d')
 
+# 隐藏坐标轴的面
 ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
@@ -113,34 +115,34 @@ ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 1.0))
 # 设置各个坐标轴下限和上限
 ax.set_xlim3d(xmin=0, xmax=8)
 ax.set_ylim3d(ymin=0, ymax=5)
-ax.set_zlim3d(zmin=-0.1, zmax=3)
+ax.set_zlim3d(zmin=0.4, zmax=1.6)
 
 tmp_planes = ax.zaxis._PLANES
-ax.zaxis._PLANES = ( tmp_planes[2], tmp_planes[3],
-                     tmp_planes[0], tmp_planes[1],
-                     tmp_planes[4], tmp_planes[5])
+ax.zaxis._PLANES = (tmp_planes[2], tmp_planes[3],
+                    tmp_planes[0], tmp_planes[1],
+                    tmp_planes[4], tmp_planes[5])
 
 # 设置坐标轴标题
 ax.set_xlabel('X (m)', fontsize=12)  # x轴标题
 ax.set_ylabel('Y (m)', fontsize=12)  # y轴标题
 ax.set_zlabel('Z (m)', fontsize=12)  # y轴标题
 
-ax.grid(False)#默认True，风格线。
+ax.grid(False)  # 默认True，风格线
 # ax.set_xticks([])#不显示x坐标轴
 # ax.set_yticks([])#不显示y坐标轴
 # ax.set_zticks([])#不显示z坐标轴
 # plt.axis('off')#关闭所有坐标轴
 
-# 绘制框线
-x_1 = [8, 8]
-y_1 = [0, 0]
-z_1 = [3, 0]
-ax.plot(x_1, y_1, z_1, c='k')
-
-x_2 = [8, 8]
-y_2 = [5, 5]
-z_2 = [3, 0]
-ax.plot(x_2, y_2, z_2, c='k')
+# # 绘制框线
+# x_1 = [8, 8]
+# y_1 = [0, 0]
+# z_1 = [1.6, 0.4]
+# ax.plot(x_1, y_1, z_1, c='k')
+#
+# x_2 = [8, 8]
+# y_2 = [5, 5]
+# z_2 = [1.6, 0.4]
+# ax.plot(x_2, y_2, z_2, c='k')
 
 # 设置视角
 ax.view_init(5, 300)
@@ -151,8 +153,8 @@ ax.plot(robot_2_x, robot_2_y, robot_2_z, c='#4d85bd', marker='s', markersize=3, 
 ax.plot(robot_3_x, robot_3_y, robot_3_z, c='#59a95a', marker='^', markersize=3, linewidth=0.5)
 
 # 源位置图案
-# plot_circle((X_position, Y_position), r=0.5)
-plt.plot(X_position, Y_position, Z_position, c='r', marker='o', markersize=6, alpha=0.7)
+plot_circle((X_position, Y_position), r=0.5)
+plt.plot(X_position, Y_position, Z_position, c='r', marker='o', markersize=6, alpha=0.4)
 
 # 起点位置图案
 plt.plot(robot_1_x[0], robot_1_y[0], robot_1_z[0], 'k-', marker='o', markersize=4)
