@@ -44,8 +44,8 @@ def plot_circle(center=(7.35, 3.05), r=0.5):
     x = np.linspace(center[0] - r, center[0] + r, 5000)
     y1 = np.sqrt(r**2 - (x-center[0])**2) + center[1]
     y2 = -np.sqrt(r**2 - (x-center[0])**2) + center[1]
-    plt.plot(x, y1, 'b-', linewidth=1)
-    plt.plot(x, y2, 'b-', linewidth=1)
+    plt.plot(x, y1, 'b--', linewidth=1)
+    plt.plot(x, y2, 'b--', linewidth=1)
 
 
 # 导入Times New Roman字体
