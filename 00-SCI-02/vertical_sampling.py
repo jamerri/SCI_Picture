@@ -18,9 +18,6 @@ from openpyxl import load_workbook
 X_position = 7.35
 Y_position = 3.05
 
-# 源定位步数
-step_num = 50
-
 # 读取路径
 book = load_workbook(filename=r"sampling_xy.xlsx")
 
@@ -69,6 +66,13 @@ ax.set_aspect(1)
 
 # 绘制折线图，添加数据点，设置点的大小
 plt.plot(x, y, '--', c='#f7903d', marker='o', markersize=6, markevery=[0, -1], linewidth=1.75, alpha=0.9)
+
+# 画箭头
+for i in range(15):
+    if i % 2 == 0:
+        plt.arrow(x[i * 8 + 4], y[i * 8 + 4], (x[i * 8 + 4] - x[i * 8 + 3]) / 100, (y[i * 8 + 4] - y[i * 8 + 3]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
+    else:
+        plt.arrow(x[i * 8 + 4], y[i * 8 + 4], (x[i * 8 + 4] - x[i * 8 + 3]) / 100, (y[i * 8 + 4] - y[i * 8 + 3]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
 
 # 源位置图案
 plot_circle((X_position, Y_position), r=0.5)

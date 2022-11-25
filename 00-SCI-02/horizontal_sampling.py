@@ -70,6 +70,13 @@ ax.set_aspect(1)
 # 绘制折线图，添加数据点，设置点的大小
 plt.plot(x, y, '--', c='#f7903d', marker='o', markersize=6, markevery=[0, -1], linewidth=1.75, alpha=0.9)
 
+# 画箭头
+plt.arrow(x[8], y[8], (x[8] - x[7]) / 100, (y[8] - y[7]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
+plt.arrow(x[22], y[22], (x[22] - x[21]) / 100, (y[22] - y[21]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
+plt.arrow(x[38], y[38], (x[38] - x[37]) / 100, (y[38] - y[37]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
+plt.arrow(x[52], y[52], (x[52] - x[51]) / 100, (y[52] - y[51]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
+plt.arrow(x[68], y[68], (x[68] - x[67]) / 100, (y[68] - y[67]) / 100, shape='full', lw=0, fc='#f7903d', length_includes_head=True, head_width=.175)
+
 # 源位置图案
 plot_circle((X_position, Y_position), r=0.5)
 plt.plot(X_position, Y_position, 'r-', marker='o', markersize=5)
