@@ -14,7 +14,7 @@ import math
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 # 读取路径
-book = load_workbook(filename=r"data/浓度场数据-0710/RNV_concentration.xlsx")
+book = load_workbook(filename=r"data/浓度场数据-0710/INV_concentration.xlsx")
 
 # 读取名字为Sheet1的表
 sheet = book.get_sheet_by_name("Sheet1")
@@ -81,9 +81,9 @@ l3, = plt.plot(x, concentration3, ls='-', linewidth=1.3, c='#59A95A')
 
 # 设置图例 bbox_to_anchor图例的位置 ncol设置列数 frameon设置边框
 # plt.legend(handles=[l1, l2, l3,], labels=['M1', 'M2', 'M3',], loc='best', frameon=True, edgecolor='k')
-plt.legend(handles=[l1, l2, l3,], labels=['M1', 'M2', 'M3',], bbox_to_anchor=(0.14, 1.1), loc=2, ncol=3, frameon=False)
+plt.legend(handles=[l1, l2, l3,], labels=['MP1', 'MP2', 'MP3',], bbox_to_anchor=(0.14, 1.1), loc=2, ncol=3, frameon=False)
 
 # 保存图片
 plt.rcParams['figure.figsize'] = (4.0, 3.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/20220710-RNV_concentration_filed-0912.svg', bbox_inches='tight', dpi=600)
+plt.savefig(r'pic/INV_concentration_filed_20230202.svg', bbox_inches='tight', dpi=600)
 plt.show()
