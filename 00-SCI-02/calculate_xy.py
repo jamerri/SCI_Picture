@@ -1,22 +1,17 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-   File Name：     calculate_xyz
-   Description :
-   Author :       Jamerri
-   date：          2022/10/29
--------------------------------------------------
-   Change Activity:
-                   2022/10/29:
--------------------------------------------------
-"""
+# @Time : 2023/2/4 16:17
+# @Author : Jamerri
+# @FileName: calculate_xy.py
+# @Email : jamerri@163.com
+# @Software: PyCharm
 
 
 import xlrd
 from openpyxl.workbook import Workbook  # 新建文件用
 
 # 读取路径
-book = xlrd.open_workbook(filename=r"3D-IWOA-INV-105.xlsx")
+book = xlrd.open_workbook(filename=r"2D-IWOA-INV-135.xlsx")
 
 # 读取名字为Sheet1的表
 sheet1 = book.sheet_by_name("1_robot")
@@ -36,14 +31,12 @@ print("step total is ", step_total)
 # 用于存储1号机器人的数组
 robot_1_x = []
 robot_1_y = []
-robot_1_z = []
 
 row_num = 8
 while row_num <= (step_total + 8):
     # 将表中第一列的1-100行数据写入wind_speed数组中
     robot_1_x.append(4.97 - float(sheet1.cell_value(row_num, 2)))
     robot_1_y.append(2.38 + float(sheet1.cell_value(row_num, 1)))
-    robot_1_z.append(float(sheet1.cell_value(row_num, 3)))
     row_num = row_num + 1
 # # print(robot_1_x)
 # print("This experimental points are " + str(len(robot_1_x)) + "!!!!")
@@ -51,39 +44,24 @@ while row_num <= (step_total + 8):
 # 用于存储2号机器人的数组
 robot_2_x = []
 robot_2_y = []
-robot_2_z = []
 row_num = 8
 
 while row_num <= (step_total + 8):
     # 将表中第一列的1-100行数据写入wind_speed数组中
     robot_2_x.append(4.97 - float(sheet2.cell_value(row_num, 2)))
     robot_2_y.append(2.38 + float(sheet2.cell_value(row_num, 1)))
-    robot_2_z.append(float(sheet2.cell_value(row_num, 3)))
     row_num = row_num + 1
 
 # 用于存储3号机器人的数组
 robot_3_x = []
 robot_3_y = []
-robot_3_z = []
 row_num = 8
 
 while row_num <= (step_total + 8):
     # 将表中第一列的1-100行数据写入wind_speed数组中
     robot_3_x.append(4.97 - float(sheet3.cell_value(row_num, 2)))
     robot_3_y.append(2.38 + float(sheet3.cell_value(row_num, 1)))
-    robot_3_z.append(float(sheet3.cell_value(row_num, 3)))
     row_num = row_num + 1
-
-# print(robot_1_x)
-# print("len is ", len(robot_1_x))
-# print(robot_1_y)
-# print(robot_1_z)
-# print(robot_2_x)
-# print(robot_2_y)
-# print(robot_2_z)
-# print(robot_3_x)
-# print(robot_3_y)
-# print(robot_3_z)
 
 # 保存数据
 outwb = Workbook()  # 新建文件
@@ -100,9 +78,6 @@ for i in range(len(robot_1_x)):
 for i in range(len(robot_1_y)):
     row_no = i + 2
     careerSheet1.cell(row=row_no, column=2).value = robot_1_y[i]
-for i in range(len(robot_1_z)):
-    row_no = i + 2
-    careerSheet1.cell(row=row_no, column=3).value = robot_1_z[i]
 
 # 保存二号机器人的数据
 careerSheet2 = outwb.create_sheet('robot_2', 0)  # 插入一个sheet叫career，创建当前工作表
@@ -115,9 +90,6 @@ for i in range(len(robot_2_x)):
 for i in range(len(robot_2_y)):
     row_no = i + 2
     careerSheet2.cell(row=row_no, column=2).value = robot_2_y[i]
-for i in range(len(robot_2_z)):
-    row_no = i + 2
-    careerSheet2.cell(row=row_no, column=3).value = robot_2_z[i]
 
 # 保存三号机器人的数据
 careerSheet3 = outwb.create_sheet('robot_3', 0)  # 插入一个sheet叫career，创建当前工作表
@@ -130,8 +102,5 @@ for i in range(len(robot_3_x)):
 for i in range(len(robot_3_y)):
     row_no = i + 2
     careerSheet3.cell(row=row_no, column=2).value = robot_3_y[i]
-for i in range(len(robot_3_z)):
-    row_no = i + 2
-    careerSheet3.cell(row=row_no, column=3).value = robot_3_z[i]
 
-outwb.save("3D-IWOA-INV-105_to_matlab.xlsx")
+outwb.save("2D-IWOA-INV-135_to_matlab.xlsx")

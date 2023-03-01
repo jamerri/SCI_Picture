@@ -95,5 +95,5 @@ ax2.set_ylabel('Airflow Direction ('u'\u00b0'')', fontsize=14, color='k')
 plt.legend(handles=[l1, l2, ], labels=['Airflow Speed', 'Airflow Direction'], bbox_to_anchor=(0.08, 1.1), loc=2, ncol=2,
            frameon=False)
 plt.rcParams['figure.figsize'] = (4.0, 3.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/M3_wind_INV-20220912.svg', bbox_inches='tight', dpi=600)  # 保存图片
+plt.savefig(r'pic/M3_wind_INV-20220912-test.svg', bbox_inches='tight', dpi=600)  # 保存图片
 plt.show()

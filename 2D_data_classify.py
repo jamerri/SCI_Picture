@@ -28,7 +28,7 @@ X_position = 7.35
 Y_position = 3.05
 
 # 实验组数
-Experiment_number = 8
+Experiment_number = 9
 # 数据存储文件夹
 dirs = './data/data_classfiry'
 
@@ -41,7 +41,7 @@ def class_files_function(f_num):
 
     # 获得文件名
     filelist = os.listdir(dirs)
-
+    print(filelist)
     # 按照实验组数对数据进行分类
     for i in range(f_num):
         # path = './ddd/'
