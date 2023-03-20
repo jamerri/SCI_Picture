@@ -25,7 +25,7 @@ def sgn(value, value_i, values_t):
 
 
 # 导入Times New Roman字体
-plt.rc('font', family='Times New Roman', size=18)
+plt.rc('font', family='Times New Roman', size=14)
 
 # 设置xtick和ytick的方向：in、out、inout
 plt.rcParams['xtick.direction'] = 'in'
@@ -49,12 +49,12 @@ plt.xlim(0, 900)
 plt.ylim(0, 15)
 
 # 设置坐标轴标题
-bax.set_xlabel('Time (s)', fontsize=18)  # x轴标题
-bax.set_ylabel('Release rate (mg/s)', fontsize=18)  # y轴标题
+bax.set_xlabel('Time (s)', fontsize=14)  # x轴标题
+bax.set_ylabel('Release rate (mg/s)', fontsize=14)  # y轴标题
 
 l = bax.plot(x, y, c='#6e9ece')
 
 # 保存图片
 plt.rcParams['figure.figsize'] = (2.0, 1.5)  # 设置figure_size尺寸
-plt.savefig("source_release2.tiff", bbox_inches='tight', dpi=600)
+plt.savefig("source_release.svg", bbox_inches='tight', dpi=600)
 plt.show()
