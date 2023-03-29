@@ -14,7 +14,7 @@ import math
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 # 读取路径
-book = load_workbook(filename=r"data/浓度场数据-0710/M3.xlsx")
+book = load_workbook(filename=r"data/浓度场数据-0720/M3-20220720.xlsx")
 
 # 读取名字为Sheet1的表
 sheet = book.get_sheet_by_name("Sheet1")
@@ -24,8 +24,8 @@ wind_speed = []
 wind_direction = []
 
 # Imitated 451(M1-M3) Real 621(M1-M3) (M0)
-row_num = 451
-while row_num <= 750:
+row_num = 2651
+while row_num <= 2950:
     # 将表中第一列的1-100行数据写入wind_speed数组中
     wind_speed.append(sheet.cell(row=row_num, column=2).value)
     wind_direction.append(sheet.cell(row=row_num, column=1).value)
@@ -72,11 +72,11 @@ l2, = ax2.plot(x, wind_direction, ls='-', linewidth=1.3, c='#3979F2')
 
 # 设置坐标轴范围
 plt.xlim(0, 300)
-ax1.set_ylim(0, 0.6)
+ax1.set_ylim(0, 1.2)
 ax2.set_ylim(0, 360)
 
 # 设置为n的倍数
-ax1ymajorLocator = MultipleLocator(0.1)
+ax1ymajorLocator = MultipleLocator(0.2)
 ax1.yaxis.set_major_locator(ax1ymajorLocator)
 
 # 设置为60的倍数
@@ -88,12 +88,12 @@ ax2.yaxis.set_major_locator(ax2ymajorLocator)
 
 # 设置坐标轴标签
 ax1.set_xlabel('Time (s)', fontsize=14)
-ax1.set_ylabel('Airflow Speed (m/s)', fontsize=14, color='k')
+ax1.set_ylabel('Airflow Velocity (m/s)', fontsize=14, color='k')
 ax2.set_ylabel('Airflow Direction ('u'\u00b0'')', fontsize=14, color='k')
 
 # 设置图例 bbox_to_anchor图例的位置 ncol设置列数 frameon设置边框
-plt.legend(handles=[l1, l2, ], labels=['Airflow Speed', 'Airflow Direction'], bbox_to_anchor=(0.08, 1.1), loc=2, ncol=2,
+plt.legend(handles=[l1, l2, ], labels=['Airflow Velocity', 'Airflow Direction'], bbox_to_anchor=(0.08, 1.1), loc=2, ncol=2,
            frameon=False)
 plt.rcParams['figure.figsize'] = (4.0, 3.0)  # 设置figure_size尺寸
-plt.savefig(r'pic/M3_wind_INV-20220912-test.svg', bbox_inches='tight', dpi=600)  # 保存图片
+plt.savefig(r'pic/20230329_RNV_M3.svg', bbox_inches='tight', dpi=600)  # 保存图片
 plt.show()
