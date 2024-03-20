@@ -99,6 +99,15 @@ ax.axes.zaxis.set_ticks([])
 # 导入立方体框线
 plot_linar_cube(ax, 0, 0, 0, 8, 8, 6)
 
+# 绘制不一样的起始点
+ax.scatter(x_1[0], y_1[0], z_1[0], s=21, c='k', marker='o', edgecolor='k')
+ax.scatter(x_2[0], y_2[0], z_2[0], s=21, c='k', marker='s', edgecolor='k')
+ax.scatter(x_3[0], y_3[0], z_3[0], s=21, c='k', marker='^', edgecolor='k')
+
+ax.scatter(x_1[0], y_1[0], s=21, c='k', marker='o', edgecolor='k')
+ax.scatter(x_2[0], y_2[0], s=21, c='k', marker='s', edgecolor='k')
+ax.scatter(x_3[0], y_3[0], s=21, c='k', marker='^', edgecolor='k')
+
 # 绘制折线图，添加数据点，设置点的大小
 ax.plot(x_1, y_1, z_1, '-', c='#f7903d', marker='o', markersize=3.5, linewidth=0.75)
 ax.plot(x_2, y_2, z_2, '-', c='#4d85bd', marker='s', markersize=3.5, linewidth=0.75)
@@ -131,7 +140,7 @@ plt.rcParams['figure.figsize'] = (6.0, 8.0)
 ax.view_init(elev=7, azim=-123)
 
 # 保存图片
-plt.savefig(r'./fig2_20221122.tiff', bbox_inches='tight', dpi=300)
+plt.savefig(r'./plume_finding.svg', bbox_inches='tight', dpi=600)
 
 plt.show()
 
